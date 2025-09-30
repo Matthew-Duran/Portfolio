@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- UI -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="MD-Logo.jpg">
     <title>Matthew Duran - Developer Portfolio</title>
     <style>
         * {
@@ -14,7 +16,7 @@
         :root {
             --primary-bg: #0a0a0a;
             --secondary-bg: #1a1a1a;
-            --accent-color: #00d4ff;
+            --accent-color: #0d00ff;
             --text-primary: #ffffff;
             --text-secondary: #a0a0a0;
             --glass-bg: rgba(255, 255, 255, 0.1);
@@ -24,8 +26,8 @@
         [data-theme="light"] {
             --primary-bg: #ffffff;
             --secondary-bg: #f8f9fa;
-            --accent-color: #0066cc;
-            --text-primary: #1a1a1a;
+            --accent-color: #0d00ff;
+            --text-primary: #000000;
             --text-secondary: #666666;
             --glass-bg: rgba(0, 0, 0, 0.05);
             --glass-border: rgba(0, 0, 0, 0.1);
@@ -162,7 +164,7 @@
 
         .btn-primary {
             background: var(--accent-color);
-            color: #000;
+            color: #ffffff;
         }
 
         .btn-primary:hover {
@@ -315,13 +317,13 @@
     </style>
 </head>
 <body>
+<!------------------------------------------------------------------------->
 
 
-
-<!-- Navigation -->
+<!-- Navigation Bar -->
 <nav>
     <div class="nav-container">
-        <div class="logo">Matthew Duran</div>
+        <div class="logo" onclick="animateLogo()">Matthew Duran</div>
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="about.html">About</a></li>
@@ -331,6 +333,57 @@
         <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
     </div>
 </nav>
+<style>
+.logo {
+    font-weight: bold;
+    font-size: 1.3rem;
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    transition: color 0.3s ease;
+}
+
+.logo:hover {
+    color: #c20505; 
+}
+
+.logo::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    left: 0;
+    bottom: -3px;
+    background-color: #c20505;
+    transition: width 0.3s ease;
+}
+
+.logo:hover::after {
+    width: 100%;
+}
+
+@keyframes bounce {
+    0%   { transform: scale(1); }
+    30%  { transform: scale(1.2); }
+    50%  { transform: scale(0.9); }
+    70%  { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.bounce {
+    animation: bounce 0.4s;
+}
+</style>
+
+<script>
+function animateLogo() {
+    const logo = document.querySelector('.logo');
+    logo.classList.add('bounce');
+    setTimeout(() => logo.classList.remove('bounce'), 400);
+}
+</script>
+<!------------------------------------------------------------------------->
+
 
 <!-- Hero Section -->
 <section class="hero" id="home">
@@ -355,6 +408,8 @@
         <span style="font-size: 2rem;">↓</span>
     </div>
 </section>
+<!------------------------------------------------------------------------->
+
 
 <!-- Quick Links -->
 <section class="quick-links">
@@ -362,19 +417,22 @@
     <div class="links-grid">
         <a href="about.html" class="link-card">
             <h3>About Me</h3>
-            <p>Learn about my background, skills, and journey as a developer</p>
+            <p>Professional background and core skills.</p>
         </a>
         <a href="projects.html" class="link-card">
             <h3>Projects</h3>
-            <p>Discover my latest work and technical achievements</p>
+            <p>A selection of my work and learning experiences.</p>
         </a>
         <a href="contact.html" class="link-card">
             <h3>Contact</h3>
-            <p>Let's connect and discuss opportunities</p>
+            <p>Open to career opportunities.</p>
         </a>
     </div>
 </section>
+<!------------------------------------------------------------------------->
 
+
+ <!-- Functionality Section -->
 <script>
     function toggleTheme() {
         const body = document.body;
@@ -423,5 +481,6 @@
         }
     });
 </script>
+<!------------------------------------------------------------------------->
 </body>
 </html>

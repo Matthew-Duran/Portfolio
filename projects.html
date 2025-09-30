@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- UI -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="MD-Logo.jpg">
+    <title>Projects - Matthew Duran</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-bg: #0a0a0a;
+            --secondary-bg: #1a1a1a;
+            --accent-color: #0d00ff;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        [data-theme="light"] {
+            --primary-bg: #ffffff;
+            --secondary-bg: #f8f9fa;
+            --accent-color: #0d00ff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+            --glass-bg: rgba(0, 0, 0, 0.05);
+            --glass-border: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 2rem;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        [data-theme="light"] nav {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .theme-toggle {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            padding: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .projects-hero {
+            padding: 120px 2rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .projects-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text-primary), var(--accent-color));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .projects-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .content-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 2rem 4rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            gap: 3rem;
+        }
+
+        .project-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 3rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out both;
+        }
+
+        .project-card:nth-child(1) {
+            animation-delay: 0.3s;
+        }
+
+        .project-card:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .project-card:nth-child(3) {
+            animation-delay: 0.7s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.15);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .project-title {
+            color: var(--accent-color);
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .project-link {
+            padding: 0.5rem 1.25rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            background: var(--accent-color);
+            color: #000;
+            transform: translateY(-2px);
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            padding: 0.4rem 1rem;
+            background: var(--secondary-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            color: var(--accent-color);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .project-description {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .project-description li {
+            color: var(--text-secondary);
+            padding: 0.75rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.7;
+        }
+
+        .project-description li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .project-card {
+                padding: 2rem;
+            }
+
+            .project-header {
+                flex-direction: column;
+            }
+
+            .project-links {
+                width: 100%;
+            }
+
+            .project-link {
+                flex: 1;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<!------------------------------------------------------------------------->
+
+
+<!-- Navigation Bar -->
+<nav>
+    <div class="nav-container">
+        <div class="logo" onclick="animateLogo()">Matthew Duran</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+    </div>
+</nav>
+<style>
+.logo {
+    font-weight: bold;
+    font-size: 1.3rem;
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    transition: color 0.3s ease;
+}
+
+.logo:hover {
+    color: #c20505; 
+}
+
+.logo::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    left: 0;
+    bottom: -3px;
+    background-color: #c20505;
+    transition: width 0.3s ease;
+}
+
+.logo:hover::after {
+    width: 100%;
+}
+
+@keyframes bounce {
+    0%   { transform: scale(1); }
+    30%  { transform: scale(1.2); }
+    50%  { transform: scale(0.9); }
+    70%  { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.bounce {
+    animation: bounce 0.4s;
+}
+</style>
+
+<script>
+function animateLogo() {
+    const logo = document.querySelector('.logo');
+    logo.classList.add('bounce');
+    setTimeout(() => logo.classList.remove('bounce'), 400);
+}
+</script>
+<!------------------------------------------------------------------------->
+
+<!-- Hero Section -->
+<section class="projects-hero">
+    <h1 class="projects-title">My Projects</h1>
+    <p class="projects-subtitle">Software Development and Data Projects</p>
+</section>
+<!------------------------------------------------------------------------->
+
+
+<!-- Project Section -->
+<section class="content-section">
+    <div class="projects-grid">
+        
+        <!-- Project 1: The 12th Man -->
+        <div class="project-card">
+            <div class="project-header">
+                <h2 class="project-title">The 12th Man</h2>
+                <div class="project-links">
+                    <a href="https://the-12th-man.netlify.app/" target="_blank" class="project-link">Live Demo</a>
+                    <a href="https://github.com/Matthew-Duran/The-12th-Man" target="_blank" class="project-link">Source Code</a>
+                </div>
+            </div>
+            <div class="tech-stack">
+                <span class="tech-tag">Spring Boot</span>
+                <span class="tech-tag">ReactJS</span>
+                <span class="tech-tag">PostgreSQL</span>
+                <span class="tech-tag">Python</span>
+            </div>
+            <ul class="project-description">
+                <li>Engineered a fantasy football analytics platform delivering real-time insights for Premier League matches</li>
+                <li>Developed automated Python pipelines for large-scale web scraping and data cleaning of match statistics</li>
+                <li>Applied machine learning to forecast player performance, improving predictive accuracy over baselines</li>
+                <li>Deployed a scalable full-stack application with an interactive React UI and persistent PostgreSQL backend</li>
+            </ul>
+        </div>
+        <!------------------------------------------------------------------------->
+
+
+        <!-- Project 2: Lockbox -->
+        <div class="project-card">
+            <div class="project-header">
+                <h2 class="project-title">Lockbox: Presidential Debate Momentum Tracker</h2>
+                <div class="project-links">
+                    <a href="https://github.com/Matthew-Duran/LockBox" target="_blank" class="project-link">Source Code</a>
+                </div>
+            </div>
+            <div class="tech-stack">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">NLP</span>
+                <span class="tech-tag">Data Visualization</span>
+            </div>
+            <ul class="project-description">
+                <li>Implemented natural language processing to analyze U.S. presidential debates (2000–2024) at the line level</li>
+                <li>Generated real-time sentiment scoring and momentum graphs to evaluate candidate resonance and performance</li>
+                <li>Designed interactive visualizations in Python to communicate debate dynamics and predictive insights</li>
+            </ul>
+        </div>
+        <!------------------------------------------------------------------------->
+
+
+        <!-- Project 3: Risotto House Tip Calculator -->
+        <div class="project-card">
+            <div class="project-header">
+                <h2 class="project-title">Risotto House Tip Calculator</h2>
+                <div class="project-links">
+                    <a href="https://tip-app-5bpk.onrender.com" target="_blank" class="project-link">Live Demo</a>
+                    <a href="https://github.com/Matthew-Duran/Risotto-House-Tip-Website" target="_blank" class="project-link">Source Code</a>
+                </div>
+            </div>
+            <div class="tech-stack">
+                <span class="tech-tag">HTML5</span>
+                <span class="tech-tag">CSS</span>
+                <span class="tech-tag">JavaScript</span>
+            </div>
+            <ul class="project-description">
+                <li>Built and deployed a responsive web-based tip calculator to streamline restaurant payment processing</li>
+            </ul>
+        </div>
+        <!------------------------------------------------------------------------->
+
+
+        <!-- Project 4: 2025 Premier League Predictor -->
+        <div class="project-card">
+            <div class="project-header">
+                <h2 class="project-title">2025 Premier League Predictor</h2>
+                <div class="project-links">
+                    <a href="https://github.com/Matthew-Duran/PL2025_ML_Predictor" target="_blank" class="project-link">Source Code</a>
+                </div>
+            </div>
+            <div class="tech-stack">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">Machine Learning</span>
+                <span class="tech-tag">Data Visualization</span>
+                <span class="tech-tag">Sports Analytics</span>
+            </div>
+            <ul class="project-description">
+                <li>Forecasts Premier League outcomes for the 2025–26 season using historical data from 2018–2024.</li>
+                <li>Uses machine learning to predict points and rankings for all teams.</li>
+                <li>Provides a data-driven tool for managers and analysts to assess team performance and league standings.</li>
+        </div>
+        <!------------------------------------------------------------------------->
+
+
+        <!-- Project 5: Real-Time Object Detection -->
+        <div class="project-card">
+            <div class="project-header">
+                <h2 class="project-title">Real-Time Object Detection</h2>
+                <div class="project-links">
+                    <a href="https://github.com/Matthew-Duran/PL2025_ML_Predictor" target="_blank" class="project-link">Source Code</a>
+                </div>
+            </div>
+            <div class="tech-stack">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">YOLOv8</span>
+                <span class="tech-tag">OpenCV</span>
+                <span class="tech-tag">CVZone</span>
+            </div>
+            <ul class="project-description">
+                <li>Captures webcam video and performs real-time object detection with YOLOv8, displaying bounding boxes, class names, and confidence scores.</li>
+                <li>Uses OpenCV for efficient video capture and frame processing.</li>
+                <li>Leverages CVZone for simplified overlay rendering and visualization of detection results.</li>
+        </div>
+        <!------------------------------------------------------------------------->
+        
+
+        <!-- Project 6: Premier League Data Scraper -->
+        <div class="project-card">
+            <div class="project-header">
+                <h2 class="project-title">Premier League Data Scraper</h2>
+                <div class="project-links">
+                    <a href="https://github.com/Matthew-Duran/PL-Data-Scraper" target="_blank" class="project-link">Source Code</a>
+                </div>
+            </div>
+            <div class="tech-stack">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">BeautifulSoup</span>
+                <span class="tech-tag">Pandas</span>
+                <span class="tech-tag">Cloudscraper</span>
+            </div>
+            <ul class="project-description">
+                <li>Scrapes Premier League team statistics from FBref and consolidates them into a clean CSV dataset for analysis.</li>
+                <li>Bypasses Cloudflare protection using Cloudscraper to access the data.</li>
+                <li>Uses BeautifulSoup and Pandas to parse HTML tables and transform them into structured, analysis-ready data.</li>
+            </ul>
+        </div>
+        <!------------------------------------------------------------------------->
+
+        <!-- Project 7: Spring Security Practice -->
+        <div class="project-card">
+            <div class="project-header">
+                <h2 class="project-title">Spring Security Practice</h2>
+                <div class="project-links">
+                    <a href="https://github.com/Matthew-Duran/SpringSecurityPractice" target="_blank" class="project-link">Source Code</a>
+                </div>
+            </div>
+            <div class="tech-stack">
+                <span class="tech-tag">Java</span>
+                <span class="tech-tag">Spring Boot</span>
+                <span class="tech-tag">Spring Security</span>
+            </div>
+            <ul class="project-description">
+                <li>Practice project for Spring Security, featuring authentication, custom login, and in-memory user management.</li>
+            </ul>
+        </div>
+        <!------------------------------------------------------------------------->
+    </div>
+</section>
+<!------------------------------------------------------------------------->
+
+
+<!-- Functionality Section -->
+<script>
+    function toggleTheme() {
+        const body = document.body;
+        const themeToggle = document.querySelector('.theme-toggle');
+
+        if (body.getAttribute('data-theme') === 'light') {
+            body.removeAttribute('data-theme');
+            themeToggle.textContent = '🌙';
+            localStorage.setItem('theme', 'dark');
+        } else {
+            body.setAttribute('data-theme', 'light');
+            themeToggle.textContent = '☀️';
+            localStorage.setItem('theme', 'light');
+        }
+    }
+
+    window.addEventListener('load', () => {
+        const savedTheme = localStorage.getItem('theme');
+        const themeToggle = document.querySelector('.theme-toggle');
+
+        if (savedTheme === 'light') {
+            document.body.setAttribute('data-theme', 'light');
+            themeToggle.textContent = '☀️';
+        }
+    });
+
+    window.addEventListener('scroll', () => {
+        const nav = document.querySelector('nav');
+        if (window.scrollY > 50) {
+            nav.style.background = document.body.getAttribute('data-theme') === 'light' 
+                ? 'rgba(255, 255, 255, 0.95)' 
+                : 'rgba(10, 10, 10, 0.95)';
+        } else {
+            nav.style.background = document.body.getAttribute('data-theme') === 'light' 
+                ? 'rgba(255, 255, 255, 0.9)' 
+                : 'rgba(10, 10, 10, 0.9)';
+        }
+    });
+</script>
+</body>
+<!------------------------------------------------------------------------->
+</html>
