@@ -32,14 +32,12 @@ This portfolio was developed to highlight my work as a full-stack developer and 
 
 **Frontend Development:**
 
-HTML5, CSS3 
+- HTML5, CSS3 
 
-JavaScript 
-
-Font Awesome for icons
+- JavaScript 
 
 **Backend:**
 
-Spring Boot APIs for project data integration
+- Spring Boot APIs for project data integration
 
-Deployment on Netlify / GitHub Pages
+- Deployment on Netlify / GitHub Pages
